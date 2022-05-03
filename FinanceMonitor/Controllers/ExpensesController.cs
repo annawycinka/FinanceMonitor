@@ -67,7 +67,7 @@ namespace FinanceMonitor.Controllers
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateFinancialOperation(int id,
-            UpdateIncomeDto updatedOperationDto)
+            UpdateExpenseDto updatedOperationDto)
         {
             var operationModel = await _repository.GetFinancialOperationById(id);
             if (operationModel == null)

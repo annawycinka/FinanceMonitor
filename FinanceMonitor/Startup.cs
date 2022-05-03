@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using FinanceMonitor.Data;
+using FinanceMonitor.Profiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,9 @@ namespace FinanceMonitor
                 // serialize enums as strings in api responses (e.g. Role)
                 x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+            services.AddAutoMapper(typeof(OperationsProfiles));
             services.AddScoped<IIncomesRepository, IncomesRepository>();
+            services.AddScoped<IExpensesRepository, ExpensesRepository>();
             services.AddDbContext<FinanceContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(c =>

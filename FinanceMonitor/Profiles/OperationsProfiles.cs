@@ -12,9 +12,9 @@ namespace FinanceMonitor.Profiles
     {
         public OperationsProfiles()
         {
-            CreateMap<Expense, ReadIncomeDto>();
-            CreateMap<CreateIncomeDto, Expense>();
-            CreateMap<UpdateIncomeDto, Expense>();
+            CreateMap<Expense, ReadExpenseDto>();
+            CreateMap<CreateExpenseDto, Expense>();
+            CreateMap<UpdateExpenseDto, Expense>();
             CreateMap<Income, ReadIncomeDto>();
             CreateMap<CreateIncomeDto, Income>();
             CreateMap<UpdateIncomeDto, Income>();
