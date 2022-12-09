@@ -8,6 +8,18 @@ namespace FinanceMonitor.Models
     public enum ExpenseCategory
     {
         Undefined,
-        Fuel
+        Health,
+        Clothes,
+        Cosmetics,
+        Food,
+        Rent,
+        Car,
+        House,
+        Electronics,
+        Children,
+        Entertainment,
+        Presents,
+        Transport,
+        Installment
     }
 }

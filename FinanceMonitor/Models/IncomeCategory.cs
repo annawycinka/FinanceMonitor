@@ -9,6 +9,7 @@ namespace FinanceMonitor.Models
     {
         Undefined,
         Salary,
-        Pension
+        Pension,
+        Present,
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FinanceMonitor.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +9,6 @@ namespace FinanceMonitor.Data
         public FinanceContext(DbContextOptions<FinanceContext> options) : base(options)
         {
         }
-
 
         public DbSet<Income> Incomes { get; set; }
 

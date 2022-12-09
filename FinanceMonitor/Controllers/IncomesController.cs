@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FinanceMonitor.Data;
@@ -21,6 +20,12 @@ namespace FinanceMonitor.Controllers
         {
             _repository = repository;
             _mapper = mapper;
+        }
+
+        [HttpGet("/IncomeCategories", Name = nameof(GetIncomeCategories))]
+        public async Task<ActionResult<IEnumerable<IncomeCategory>>> GetIncomeCategories()
+        {
+            return Ok(Enum.GetValues<IncomeCategory>());
         }
 
         [HttpGet]

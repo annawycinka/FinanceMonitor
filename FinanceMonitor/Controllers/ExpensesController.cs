@@ -23,6 +23,12 @@ namespace FinanceMonitor.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("/ExpenseCategories", Name = nameof(GetExpenseCategories))]
+        public async Task<ActionResult<IEnumerable<ExpenseCategory>>> GetExpenseCategories()
+        {
+            return Ok(Enum.GetValues<ExpenseCategory>());
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReadExpenseDto>>> GetAllFinancialOperations()
         {
