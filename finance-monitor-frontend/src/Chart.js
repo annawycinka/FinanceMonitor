@@ -23,8 +23,7 @@ class Chart extends React.Component {
     const groups = data.reduce((groups, item) => ({
         ...groups,
         [item.time]: [...(groups[item.time] || []), item]
-      }), {});
-      console.log(groups);    
+      }), {});  
     const dataPerDay = [];
     Object.keys(groups).forEach(function(key, index) {
         const amount = groups[key].reduce((accumulator, currentItem) => accumulator + currentItem.amount, 0);
@@ -51,18 +50,9 @@ class Chart extends React.Component {
               left: 24,
             }}
           >
-            <XAxis
-              dataKey="time"
-            />
-            <YAxis
-            >
-              <Label
-                angle={270}
-                position="left"
-                style={{
-                  textAnchor: 'middle',
-                }}
-              >
+            <XAxis dataKey="time"/>
+            <YAxis>
+              <Label angle={270} position="left" style={{textAnchor: 'middle'}}>
                 Balance
               </Label>
             </YAxis>
