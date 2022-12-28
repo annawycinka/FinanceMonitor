@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import Title from './Title';
 
 class CurrentBalance extends React.Component {
 
@@ -11,7 +10,9 @@ class CurrentBalance extends React.Component {
     render() {
         return (
             <React.Fragment>
-              <Title>Current Balance</Title>
+              <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                Current Balance
+              </Typography>
               <Typography component="p" variant="h2" id="currentBalance"
 
   sx={{ "justify-content":"center",

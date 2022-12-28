@@ -8,11 +8,11 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Title from './Title';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -69,7 +69,9 @@ class IncomesAndExpenses extends React.Component {
     return (
       <React.Fragment>
 
-        <Title>Incomes and Expenses</Title>
+        <Typography component="h2" variant="h6" color="primary" gutterBottom>
+           Incomes and Expenses
+        </Typography>
         <form onSubmit={this.handleSubmit}>
           <TableContainer component={Paper}  >
             <Table size="small" id="incomesAndExpensesTable">
