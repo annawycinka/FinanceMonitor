@@ -19,24 +19,17 @@ namespace E2ETests
         {
             using var driver = new EdgeDriver();
             driver.Navigate().GoToUrl(ApplicationUrl);
-            
-            var currentBalanceElementValueBefore = GetBalance(driver);                   
+
+            var currentBalanceElementValueBefore = GetBalance(driver);
             decimal newItemValue = 30;
+            var expectedValue = currentBalanceElementValueBefore + newItemValue;
 
             SetCategoryForNewFinancialItem(driver, "Incomes");
             SetValueOfNewFinancialItem(driver, newItemValue);
 
-            await Task.Delay(1000);
-
             AddNewFinancialItemButton(driver).Click();
 
-            await Task.Delay(1000);
-
-            var currentBalanceElementValueAfter = GetBalance(driver);
-
-            await Task.Delay(2000);
-
-            Assert.AreEqual(currentBalanceElementValueBefore + newItemValue, currentBalanceElementValueAfter);
+            Assert.True(CheckIfBalanceHasExpectedValue(driver, expectedValue));
         }
 
         [Test]
@@ -47,45 +40,48 @@ namespace E2ETests
 
             var currentBalanceElementValueBefore = GetBalance(driver);
             decimal newItemValue = 30;
+            var expectedValue = currentBalanceElementValueBefore - newItemValue;
 
             SetCategoryForNewFinancialItem(driver, "Expenses");
             SetValueOfNewFinancialItem(driver, newItemValue);
 
-            await Task.Delay(1000);
-
             AddNewFinancialItemButton(driver).Click();
-
-            await Task.Delay(1000);
 
             var currentBalanceElementValueAfter = GetBalance(driver);
 
-            await Task.Delay(2000);
-
-            Assert.AreEqual(currentBalanceElementValueBefore - newItemValue, currentBalanceElementValueAfter);
+            Assert.True(CheckIfBalanceHasExpectedValue(driver, expectedValue));
         }
 
         private decimal GetBalance(IWebDriver driver)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             var element =  wait.Until(ExpectedConditions.ElementIsVisible(By.Id("currentBalance")));
             return decimal.Parse(element.Text);
         }
 
+        private bool CheckIfBalanceHasExpectedValue(IWebDriver driver, decimal expectedValue)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            var element = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("currentBalance")));
+
+            return wait.Until(ExpectedConditions.TextToBePresentInElement(element, expectedValue.ToString()));
+        }
+
         private IWebElement GetIncomesAndExpensesTable(IWebDriver driver)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             return wait.Until(ExpectedConditions.ElementIsVisible(By.Id("incomesAndExpensesTable")));
         }
 
         private IWebElement GetOccurredAtToAddElement(IWebDriver driver)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             return wait.Until(ExpectedConditions.ElementIsVisible(By.Id("occurredAtToAdd")));
         }
 
         private IWebElement GetFinancialItemValueToAddElement(IWebDriver driver)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             return wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("financialItemValueToAdd")));
         }
 
@@ -105,7 +101,7 @@ namespace E2ETests
 
         private IWebElement SelectElementOfNewFinancialItem(IWebDriver driver)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             return wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("operationTypeToAdd")));
         }
 
@@ -114,7 +110,7 @@ namespace E2ETests
             var select = SelectElementOfNewFinancialItem(driver);
             select.Click();
 
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             var liElements = wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.TagName("li")));
 
             var element = liElements.First(x => x.GetAttribute("data-value") == category);
@@ -123,7 +119,7 @@ namespace E2ETests
 
         private IWebElement AddNewFinancialItemButton(IWebDriver driver)
         {
-            var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             return wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("addButton")));
         }
     }
